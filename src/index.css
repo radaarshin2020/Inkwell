@@ -1,0 +1,130 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+
+@theme {
+  --font-serif: 'Lora', Georgia, serif;
+  --font-sans: 'Source Sans 3', system-ui, sans-serif;
+  
+  --color-cream-50: #FDFCFA;
+  --color-cream-100: #FAF8F5;
+  --color-cream-200: #F5F1EB;
+  --color-cream-300: #EBE5DB;
+  --color-cream-400: #DDD4C6;
+  
+  --color-ink-50: #F7F6F5;
+  --color-ink-100: #E8E6E3;
+  --color-ink-200: #D1CDC7;
+  --color-ink-300: #9E9789;
+  --color-ink-400: #6B6459;
+  --color-ink-500: #4A453D;
+  --color-ink-600: #3A3632;
+  --color-ink-700: #2D2A27;
+  --color-ink-800: #1F1D1B;
+  --color-ink-900: #141312;
+  
+  --color-accent-400: #8B7355;
+  --color-accent-500: #6B5A47;
+  --color-accent-600: #524536;
+  
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --shadow-large: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-cream-100);
+  color: var(--color-ink-700);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* TipTap Editor Styles */
+.tiptap {
+  outline: none;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--color-ink-700);
+}
+
+.tiptap p {
+  margin: 0 0 1em 0;
+}
+
+.tiptap h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 0.5em 0;
+  color: var(--color-ink-800);
+}
+
+.tiptap h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.5em 0 0.5em 0;
+  color: var(--color-ink-800);
+}
+
+.tiptap h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1.5em 0 0.5em 0;
+  color: var(--color-ink-800);
+}
+
+.tiptap ul,
+.tiptap ol {
+  margin: 0 0 1em 1.5em;
+  padding: 0;
+}
+
+.tiptap li {
+  margin: 0.25em 0;
+}
+
+.tiptap blockquote {
+  border-left: 3px solid var(--color-accent-400);
+  margin: 1em 0;
+  padding-left: 1em;
+  color: var(--color-ink-500);
+  font-style: italic;
+}
+
+.tiptap code {
+  background-color: var(--color-cream-300);
+  padding: 0.125em 0.375em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+.tiptap pre {
+  background-color: var(--color-ink-800);
+  color: var(--color-cream-100);
+  padding: 1em;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.tiptap pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  color: var(--color-ink-300);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.tiptap strong {
+  font-weight: 600;
+}
+
+.tiptap em {
+  font-style: italic;
+}
