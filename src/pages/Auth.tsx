@@ -1,5 +1,5 @@
 import { useState, FormEvent } from 'react';
-import { useSearchParams, Link, useNavigate } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { useAuthActions } from '@convex-dev/auth/react';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
@@ -7,7 +7,6 @@ import { Card } from '../components/ui/Card';
 
 export function Auth() {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const { signIn } = useAuthActions();
   
   const [isSignUp, setIsSignUp] = useState(searchParams.get('mode') === 'signup');
@@ -31,13 +30,30 @@ export function Auth() {
         formData.set('name', name);
       }
       
-      await signIn('password', formData);
-      navigate('/dashboard');
-    } catch (err) {
-      setError(isSignUp 
-        ? 'Could not create account. Please try again.' 
-        : 'Invalid email or password.'
-      );
+      const result = await signIn('password', formData);
+      // If signIn returns a redirect URL, we might need to handle it
+      // Otherwise, PublicRoute will auto-redirect when auth state updates
+      if (result?.signingIn) {
+        // Auth is in progress, wait for state to update
+        // PublicRoute will handle redirect when isAuthenticated becomes true
+      } else if (result?.redirect) {
+        // Handle any redirect if provided
+        window.location.href = result.redirect.toString();
+      }
+      // Don't navigate manually - let PublicRoute handle it when auth state changes
+    } catch (err: unknown) {
+      console.error('Auth error:', err);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      if (errorMessage.includes('Invalid password') || errorMessage.includes('Could not verify')) {
+        setError('Invalid email or password.');
+      } else if (errorMessage.includes('already exists') || errorMessage.includes('already registered')) {
+        setError('An account with this email already exists. Please sign in instead.');
+      } else {
+        setError(isSignUp 
+          ? 'Could not create account. Please try again.' 
+          : 'Invalid email or password.'
+        );
+      }
     } finally {
       setLoading(false);
     }

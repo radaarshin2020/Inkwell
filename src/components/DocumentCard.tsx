@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Card } from './ui/Card';
-import { Id } from '../../convex/_generated/dataModel';
+import type { Id } from '../../convex/_generated/dataModel';
 
 interface DocumentCardProps {
   id: Id<"documents">;

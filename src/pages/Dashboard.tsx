@@ -1,14 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation } from 'convex/react';
-import { useAuthActions } from '@convex-dev/auth/react';
 import { api } from '../../convex/_generated/api';
-import { Id } from '../../convex/_generated/dataModel';
+import type { Id } from '../../convex/_generated/dataModel';
 import { Button } from '../components/ui/Button';
 import { DocumentCard } from '../components/DocumentCard';
+import { AccountDropdown } from '../components/AccountDropdown';
 
 export function Dashboard() {
   const navigate = useNavigate();
-  const { signOut } = useAuthActions();
   const documents = useQuery(api.documents.list);
   const createDocument = useMutation(api.documents.create);
   const deleteDocument = useMutation(api.documents.remove);
@@ -20,11 +19,6 @@ export function Dashboard() {
 
   const handleDeleteDocument = async (id: Id<"documents">) => {
     await deleteDocument({ id });
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate('/');
   };
 
   return (
@@ -41,26 +35,24 @@ export function Dashboard() {
             </svg>
             <span className="font-serif text-2xl font-semibold text-ink-800">Inkwell</span>
           </div>
-          <div className="flex items-center gap-3">
-            <Button onClick={handleCreateDocument}>
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
-              New Document
-            </Button>
-            <Button variant="ghost" onClick={handleSignOut}>
-              Sign Out
-            </Button>
-          </div>
+          <AccountDropdown />
         </div>
       </header>
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-8 py-12">
         <div className="mb-10">
-          <h1 className="font-serif text-3xl font-semibold text-ink-800 mb-2">
-            Your Documents
-          </h1>
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="font-serif text-3xl font-semibold text-ink-800">
+              Your Documents
+            </h1>
+            <Button onClick={handleCreateDocument}>
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              New Document
+            </Button>
+          </div>
           <p className="text-ink-500">
             Create, edit, and manage your documents with AI assistance
           </p>

@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { ConvexReactClient } from 'convex/react';
-import { ConvexAuthProvider, useConvexAuth } from '@convex-dev/auth/react';
+import { ConvexReactClient, useConvexAuth } from 'convex/react';
+import { ConvexAuthProvider } from '@convex-dev/auth/react';
 import { Landing } from './pages/Landing';
 import { Auth } from './pages/Auth';
 import { Dashboard } from './pages/Dashboard';
 import { DocumentEditor } from './pages/DocumentEditor';
+import { Profile } from './pages/Profile';
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 
@@ -83,6 +84,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <DocumentEditor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />
