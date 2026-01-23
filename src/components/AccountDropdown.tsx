@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'convex/react';
 import { useAuthActions } from '@convex-dev/auth/react';
 import { api } from '../../convex/_generated/api';
+import { Button } from './ui/Button';
 
 export function AccountDropdown() {
   const navigate = useNavigate();

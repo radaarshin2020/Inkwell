@@ -1,5 +1,6 @@
 import { useAuthActions } from '@convex-dev/auth/react';
 import { TrialPopup } from '../components/TrialPopup';
+import { Button } from '../components/ui/Button';
 
 interface TrialProps {
   userEmail: string;

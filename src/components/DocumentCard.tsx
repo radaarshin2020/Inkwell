@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Card } from './ui/Card';
+import { Button } from './ui/Button';
 import type { Id } from '../../convex/_generated/dataModel';
 
 interface DocumentCardProps {

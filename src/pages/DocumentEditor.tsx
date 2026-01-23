@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import type { Id } from '../../convex/_generated/dataModel';
+import { Button } from '../components/ui/Button';
 import { Editor } from '../components/Editor';
 import { KnowledgeSidebar } from '../components/KnowledgeSidebar';
 import { AIChatSidebar } from '../components/AIChatSidebar';
