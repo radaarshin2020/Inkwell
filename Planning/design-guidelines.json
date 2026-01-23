@@ -1,0 +1,82 @@
+{
+  "project": "Inkwell",
+  "creative_direction": {
+    "vision_statement": "Inkwell represents a shift toward 'Mindful Productivity'—an interface that feels as soft as paper but as powerful as modern software. We are moving away from flat, clinical design toward a tactile, neomorphic-inspired aesthetic that emphasizes depth, focus, and organic interaction.",
+    "key_design_pillars": [
+      {
+        "pillar": "Tactile Depth",
+        "description": "UI elements should feel like they exist in a physical space. Use soft, multi-layered shadows and subtle inset states to indicate interactivity. Avoid harsh borders; use contrast and depth to define boundaries."
+      },
+      {
+        "pillar": "Organic Softness",
+        "description": "High corner radiuses (24px+) are mandatory for primary containers. The interface should feel approachable and 'human,' avoiding the sharp edges of traditional enterprise software."
+      },
+      {
+        "pillar": "Focused Minimalism",
+        "description": "Information density should be low. Use whitespace as a functional tool to guide the eye. Every component must earn its place on the screen."
+      },
+      {
+        "pillar": "Luminous Surfaces",
+        "description": "Incorporate glassmorphism (background blur) for overlays and floating menus to maintain context while providing clear separation."
+      }
+    ]
+  },
+  "typography": {
+    "heading_font": {
+      "family": "Libre Baskerville",
+      "provider": "Google Fonts",
+      "weights": ["400", "700"],
+      "rationale": "The serif font provides a literary, established feel that grounds the modern interface. It creates a beautiful contrast with the ultra-modern functional elements."
+    },
+    "body_font": {
+      "family": "Plus Jakarta Sans",
+      "provider": "Google Fonts",
+      "weights": ["400", "500", "600", "700"],
+      "rationale": "A clean, modern geometric sans-serif that ensures high legibility across all screen sizes while maintaining a friendly, contemporary tone."
+    }
+  },
+  "color_palette": {
+    "background": "#FAF9F6",
+    "surface": "#FFFFFF",
+    "dark_surface": "#2D2D30",
+    "action_accent": "#5858D6",
+    "text_primary": "#1A1A1A",
+    "text_secondary": "#6E6E73",
+    "success": "#34C759",
+    "toolbar": "#F5F2EF"
+  },
+  "component_guidelines": {
+    "toolbars": {
+      "structure": "White surfaces with high-radius corners. Group related tools with subtle dividers.",
+      "interaction": "Active states should use a recessed 'inset' shadow effect to simulate a physical button being pressed."
+    },
+    "action_bars": {
+      "structure": "Floating charcoal-dark containers (#2D2E32) at the bottom of the viewport. These house the primary intent-based actions.",
+      "icons": "Minimalist, thin-stroke white icons with consistent weight."
+    },
+    "cards_and_previews": {
+      "structure": "16px to 24px border radius. Use a 1px soft border (#E5E5E5) or a soft shadow (0 4px 20px rgba(0,0,0,0.04)).",
+      "indicators": "Status icons (loading/success) should be placed in circular white capsules floating above the card corners."
+    },
+    "mentions_and_tags": {
+      "style": "Capsule-shaped backgrounds with a slight tint of the inverse surface color. These should feel like part of the text flow but clearly distinguishable."
+    },
+    "buttons": {
+      "primary": "Pill-shaped, using the surface_inverse color for maximum contrast against the light canvas.",
+      "icon_only": "Circular or slightly rounded square containers with a soft hover state."
+    }
+  },
+  "layout_and_spacing": {
+    "corner_radius": {
+      "containers": "24px",
+      "components": "12px",
+      "tags": "100px"
+    },
+    "shadows": {
+      "small": "0 2px 8px rgba(0, 0, 0, 0.04)",
+      "medium": "0 8px 30px rgba(0, 0, 0, 0.06)",
+      "large": "0 16px 48px rgba(0, 0, 0, 0.1)",
+      "inset": "inset 2px 2px 4px rgba(0, 0, 0, 0.05)"
+    }
+  }
+}

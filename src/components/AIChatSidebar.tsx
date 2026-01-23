@@ -79,15 +79,17 @@ export function AIChatSidebar({ documentId, documentContent, onInsertText }: AIC
         <div className="flex items-center justify-between mb-2">
           <h2 className="font-serif text-lg font-semibold text-ink-700">AI Assistant</h2>
           {messages && messages.length > 0 && (
-            <button
+            <Button
               onClick={handleClearChat}
-              className="p-1.5 text-ink-400 hover:text-ink-600 hover:bg-cream-200 rounded-lg transition-colors"
+              variant="ghost"
+              size="sm"
+              className="p-1.5 text-ink-400 hover:text-ink-600"
               title="Clear chat"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
               </svg>
-            </button>
+            </Button>
           )}
         </div>
         <p className="text-xs text-ink-400">
@@ -140,15 +142,17 @@ export function AIChatSidebar({ documentId, documentContent, onInsertText }: AIC
                 >
                   <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                   {message.role === 'assistant' && (
-                    <button
+                    <Button
                       onClick={() => handleInsert(message.content)}
+                      variant="ghost"
+                      size="sm"
                       className="mt-2 text-xs text-accent-500 hover:text-accent-600 flex items-center gap-1"
                     >
                       <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                       </svg>
                       Insert into document
-                    </button>
+                    </Button>
                   )}
                 </div>
               </div>
@@ -184,7 +188,7 @@ export function AIChatSidebar({ documentId, documentContent, onInsertText }: AIC
           <Button
             type="submit"
             disabled={!input.trim() || isLoading}
-            className="self-end"
+            className="self-end p-3 aspect-square min-w-[44px]"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

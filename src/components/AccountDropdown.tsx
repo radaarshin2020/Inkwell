@@ -43,9 +43,10 @@ export function AccountDropdown() {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <button
+      <Button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-cream-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ink-200"
+        variant="ghost"
+        className="flex items-center gap-2 p-1.5 focus:ring-2 focus:ring-ink-200"
         aria-label="Account menu"
       >
         <div className="w-9 h-9 bg-ink-700 text-cream-50 rounded-full flex items-center justify-center text-sm font-medium">
@@ -59,7 +60,7 @@ export function AccountDropdown() {
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
-      </button>
+      </Button>
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-56 bg-cream-50 rounded-xl shadow-medium border border-cream-200 py-2 z-50">
@@ -75,33 +76,36 @@ export function AccountDropdown() {
 
           {/* Menu items */}
           <div className="py-1">
-            <button
+            <Button
               onClick={handleProfileClick}
-              className="w-full px-4 py-2.5 text-left text-ink-700 hover:bg-cream-200 transition-colors duration-150 flex items-center gap-3"
+              variant="ghost"
+              className="w-full px-4 py-2.5 text-left text-ink-700 flex items-center gap-3"
             >
               <svg className="w-5 h-5 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
               Profile
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => window.open('https://sandbox.polar.sh/inkwelltest/portal', '_blank')}
-              className="w-full px-4 py-2.5 text-left text-ink-700 hover:bg-cream-200 transition-colors duration-150 flex items-center gap-3"
+              variant="ghost"
+              className="w-full px-4 py-2.5 text-left text-ink-700 flex items-center gap-3"
             >
               <svg className="w-5 h-5 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
               </svg>
               Manage Subscription
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={handleSignOut}
-              className="w-full px-4 py-2.5 text-left text-ink-700 hover:bg-cream-200 transition-colors duration-150 flex items-center gap-3"
+              variant="ghost"
+              className="w-full px-4 py-2.5 text-left text-ink-700 flex items-center gap-3"
             >
               <svg className="w-5 h-5 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
               Sign Out
-            </button>
+            </Button>
           </div>
         </div>
       )}

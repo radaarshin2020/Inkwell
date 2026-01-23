@@ -72,15 +72,17 @@ export function KnowledgeSidebar({ documentId }: KnowledgeSidebarProps) {
         <div className="flex items-center justify-between mb-2">
           <h2 className="font-serif text-lg font-semibold text-ink-700">Knowledge</h2>
           {!isAdding && !editingId && (
-            <button
+            <Button
               onClick={() => setIsAdding(true)}
-              className="p-1.5 text-ink-500 hover:text-ink-700 hover:bg-cream-200 rounded-lg transition-colors"
+              variant="ghost"
+              size="sm"
+              className="p-1.5 text-ink-500 hover:text-ink-700"
               title="Add knowledge"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
-            </button>
+            </Button>
           )}
         </div>
         <p className="text-xs text-ink-400">
@@ -109,8 +111,9 @@ export function KnowledgeSidebar({ documentId }: KnowledgeSidebarProps) {
               size="sm"
               onClick={editingId ? handleUpdate : handleAdd}
               disabled={!title.trim() || !content.trim()}
+              className="flex-1"
             >
-              {editingId ? 'Update' : 'Add'}
+              {editingId ? 'Update' : 'Add Knowledge'}
             </Button>
             <Button size="sm" variant="ghost" onClick={handleCancel}>
               Cancel
@@ -163,24 +166,28 @@ export function KnowledgeSidebar({ documentId }: KnowledgeSidebarProps) {
                     {item.title}
                   </h3>
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
+                    <Button
                       onClick={() => handleEdit(item)}
-                      className="p-1 text-ink-400 hover:text-ink-600 hover:bg-cream-200 rounded"
+                      variant="ghost"
+                      size="sm"
+                      className="p-1 text-ink-400 hover:text-ink-600"
                       title="Edit"
                     >
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                       </svg>
-                    </button>
-                    <button
+                    </Button>
+                    <Button
                       onClick={() => handleDelete(item._id)}
-                      className="p-1 text-ink-400 hover:text-red-500 hover:bg-red-50 rounded"
+                      variant="ghost"
+                      size="sm"
+                      className="p-1 text-ink-400 hover:text-red-500 hover:bg-red-50"
                       title="Delete"
                     >
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
-                    </button>
+                    </Button>
                   </div>
                 </div>
                 <p className="text-xs text-ink-400 mt-1 line-clamp-2">

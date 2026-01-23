@@ -14,7 +14,7 @@ export function Landing() {
               <path d="M2 2l7.586 7.586" />
               <circle cx="11" cy="11" r="2" />
             </svg>
-            <span className="font-serif text-2xl font-semibold text-ink-800">Inkwell</span>
+            <span className="font-logo text-2xl italic text-ink-800">Inkwell</span>
           </div>
           <div className="flex items-center gap-4">
             <Link to="/auth">
@@ -30,10 +30,8 @@ export function Landing() {
       {/* Hero Section */}
       <main className="flex-1 flex items-center justify-center px-8 py-16">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-semibold text-ink-800 leading-tight mb-6">
-            Write with clarity.
-            <br />
-            <span className="text-accent-500">Powered by knowledge.</span>
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-normal text-ink-800 leading-tight mb-6">
+            Write with <span className="text-accent-500">Knowledge</span>
           </h1>
           <p className="text-xl md:text-2xl text-ink-500 max-w-2xl mx-auto mb-10 leading-relaxed">
             An intelligent document editor that understands your references. 
@@ -41,10 +39,10 @@ export function Landing() {
           </p>
           <div className="flex items-center justify-center gap-4">
             <Link to="/auth?mode=signup">
-              <Button size="lg">
+              <Button size="lg" className="gap-2">
                 Start Writing Free
-                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <svg className="w-5 h-5 sparkle-animation" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l2.4 7.2L22 12l-7.6 2.4L12 22l-2.4-7.2L2 12l7.6-2.4L12 2z" />
                 </svg>
               </Button>
             </Link>
@@ -109,11 +107,16 @@ export function Landing() {
               <path d="M2 2l7.586 7.586" />
               <circle cx="11" cy="11" r="2" />
             </svg>
-            <span className="font-serif text-lg text-ink-500">Inkwell</span>
+            <span className="font-logo text-lg italic text-ink-500">Inkwell</span>
           </div>
-          <p className="text-ink-400 text-sm">
-            © 2026 Inkwell. Write beautifully.
-          </p>
+          <div className="flex items-center gap-6">
+            <Link to="/style-guide" className="text-ink-400 text-sm hover:text-ink-600 transition-colors">
+              Style Guide
+            </Link>
+            <p className="text-ink-400 text-sm">
+              © 2026 Inkwell. Write beautifully.
+            </p>
+          </div>
         </div>
       </footer>
     </div>

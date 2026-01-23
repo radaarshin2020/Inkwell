@@ -1,0 +1,10 @@
+---
+name: design
+description: This is a new rule
+---
+
+## General guidlines
+
+- Only make frontend, visual changes
+- Never change any app functionality
+

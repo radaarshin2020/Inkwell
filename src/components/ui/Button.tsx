@@ -1,18 +1,19 @@
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'ghost' | '3d';
   size?: 'sm' | 'md' | 'lg';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className = '', variant = 'primary', size = 'md', children, ...props }, ref) => {
-    const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+  ({ className = '', variant = '3d', size = 'md', children, ...props }, ref) => {
+    const baseStyles = 'inline-flex items-center justify-center font-semibold transition-all duration-300 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed rounded-full';
     
     const variants = {
-      primary: 'bg-ink-700 text-cream-50 hover:bg-ink-800 focus:ring-ink-500 shadow-soft hover:shadow-medium',
-      secondary: 'bg-cream-200 text-ink-700 hover:bg-cream-300 focus:ring-ink-300 shadow-soft',
-      ghost: 'bg-transparent text-ink-600 hover:bg-cream-200 focus:ring-ink-200',
+      primary: 'button-3d',
+      secondary: 'button-3d-secondary',
+      ghost: 'bg-transparent text-ink-600 hover:bg-cream-200',
+      '3d': 'button-3d',
     };
     
     const sizes = {

@@ -71,7 +71,7 @@ export function Auth() {
               <path d="M2 2l7.586 7.586" />
               <circle cx="11" cy="11" r="2" />
             </svg>
-            <span className="font-serif text-2xl font-semibold text-ink-800">Inkwell</span>
+            <span className="font-logo text-2xl italic text-ink-800">Inkwell</span>
           </Link>
         </nav>
       </header>
@@ -141,8 +141,9 @@ export function Auth() {
           </form>
 
           <div className="mt-6 text-center">
-            <button
+            <Button
               type="button"
+              variant="ghost"
               onClick={() => {
                 setIsSignUp(!isSignUp);
                 setError('');
@@ -153,7 +154,7 @@ export function Auth() {
                 ? 'Already have an account? Sign in' 
                 : "Don't have an account? Sign up"
               }
-            </button>
+            </Button>
           </div>
         </Card>
       </main>

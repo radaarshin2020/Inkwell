@@ -21,12 +21,14 @@ export function Trial({ userEmail, onSuccess }: TrialProps) {
       <div className="fixed bottom-6 left-0 right-0 text-center z-50">
         <p className="text-sm text-ink-400">
           Logged in with the wrong account?{' '}
-          <button
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={handleLogout}
-            className="text-accent-600 hover:text-accent-700 underline transition-colors"
+            className="text-accent-600 hover:text-accent-700 underline"
           >
             Log out
-          </button>
+          </Button>
         </p>
       </div>
     </div>

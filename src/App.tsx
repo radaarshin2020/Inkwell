@@ -10,6 +10,7 @@ import { DocumentEditor } from './pages/DocumentEditor';
 import { Profile } from './pages/Profile';
 import { Trial } from './pages/Trial';
 import { CheckoutSuccess } from './pages/CheckoutSuccess';
+import { StyleGuide } from './pages/StyleGuide';
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 
@@ -189,6 +190,7 @@ function App() {
             }
           />
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
+          <Route path="/style-guide" element={<StyleGuide />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

@@ -53,7 +53,7 @@ export function Profile() {
               <path d="M2 2l7.586 7.586" />
               <circle cx="11" cy="11" r="2" />
             </svg>
-            <span className="font-serif text-2xl font-semibold text-ink-800">Inkwell</span>
+            <span className="font-logo text-2xl italic text-ink-800">Inkwell</span>
           </Link>
           <AccountDropdown />
         </div>
@@ -62,15 +62,16 @@ export function Profile() {
       {/* Main Content */}
       <main className="max-w-2xl mx-auto px-8 py-12">
         <div className="mb-8">
-          <button
+          <Button
             onClick={() => navigate('/dashboard')}
-            className="flex items-center gap-2 text-ink-500 hover:text-ink-700 transition-colors mb-4"
+            variant="ghost"
+            className="flex items-center gap-2 text-ink-500 hover:text-ink-700 mb-4"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Back to Dashboard
-          </button>
+          </Button>
           <h1 className="font-serif text-3xl font-semibold text-ink-800">
             Profile Settings
           </h1>

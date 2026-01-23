@@ -2,6 +2,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import { useEffect } from 'react';
+import { Button } from './ui/Button';
 
 interface EditorProps {
   content: string;
@@ -195,18 +196,16 @@ interface ToolbarButtonProps {
 
 function ToolbarButton({ onClick, active, disabled, title, children }: ToolbarButtonProps) {
   return (
-    <button
+    <Button
       onClick={onClick}
       disabled={disabled}
       title={title}
-      className={`p-2 rounded-lg text-sm font-medium transition-colors ${
-        active 
-          ? 'bg-ink-700 text-cream-50' 
-          : 'text-ink-500 hover:bg-cream-200 hover:text-ink-700'
-      } ${disabled ? 'opacity-40 cursor-not-allowed' : ''}`}
+      variant={active ? '3d' : 'ghost'}
+      size="sm"
+      className={`p-2 ${disabled ? 'opacity-40 cursor-not-allowed' : ''}`}
     >
       {children}
-    </button>
+    </Button>
   );
 }
 
