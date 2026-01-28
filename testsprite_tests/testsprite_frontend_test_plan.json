@@ -1,0 +1,723 @@
+[
+  {
+    "id": "TC001",
+    "title": "User Sign Up with Valid Email and Password",
+    "description": "Verify that a new user can successfully sign up with a valid email and password combination.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the sign-up page"
+      },
+      {
+        "type": "action",
+        "description": "Input a valid email address"
+      },
+      {
+        "type": "action",
+        "description": "Input a valid password meeting security requirements"
+      },
+      {
+        "type": "action",
+        "description": "Submit the sign-up form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that sign-up is successful and user is redirected to dashboard or onboarding"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "User Sign In with Correct Credentials",
+    "description": "Check that users can log in successfully with correct email and password credentials.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the sign-in page"
+      },
+      {
+        "type": "action",
+        "description": "Enter a registered email"
+      },
+      {
+        "type": "action",
+        "description": "Enter the correct password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify successful authentication and access to the dashboard"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "User Sign In with Incorrect Password",
+    "description": "Verify that login fails and proper error message is displayed when a wrong password is used.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the sign-in page"
+      },
+      {
+        "type": "action",
+        "description": "Enter a registered email"
+      },
+      {
+        "type": "action",
+        "description": "Enter an incorrect password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify login fails and error message about invalid credentials is shown"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Access Denied to Dashboard without Authentication",
+    "description": "Verify that unauthenticated users cannot access the Dashboard and are redirected to sign-in page.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Attempt to directly navigate to the dashboard URL without logging in"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user is redirected to the sign-in page"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Access Denied to Dashboard with Expired Subscription",
+    "description": "Verify that users with expired or inactive subscription cannot access Dashboard and see appropriate messaging.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login with valid credentials but inactive subscription"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to access dashboard page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify access denied and redirected to subscription or trial page with message"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Create New Document from Dashboard",
+    "description": "Ensure users can create a new document successfully from the dashboard, and it appears in the list.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login with valid subscription and open dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Click on 'Create New Document' button"
+      },
+      {
+        "type": "action",
+        "description": "Enter a document name or accept default"
+      },
+      {
+        "type": "action",
+        "description": "Confirm creation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new document appears in the dashboard list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new document is empty and ready for editing"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Delete Document from Dashboard",
+    "description": "Verify that a user can delete a document from the dashboard and it no longer appears in the document list afterwards.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login and navigate to dashboard with existing documents"
+      },
+      {
+        "type": "action",
+        "description": "Initiate delete action on a document"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the deletion in the confirmation dialog"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the document is removed from the dashboard list"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Auto-Save Document Content While Editing",
+    "description": "Check that the document content is automatically saved to backend within 1 second of changes.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open a document in the editor"
+      },
+      {
+        "type": "action",
+        "description": "Make edits to the document content (add text, format text)"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify auto-save triggers and persists changes in backend within 1 second"
+      },
+      {
+        "type": "action",
+        "description": "Refresh the document page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify document content reflects the saved changes"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Edit Document Title Inline",
+    "description": "Validate that users can click the document title in the editor and edit it inline with changes saved.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open a document in the editor"
+      },
+      {
+        "type": "action",
+        "description": "Click on the document title field"
+      },
+      {
+        "type": "action",
+        "description": "Change the title text"
+      },
+      {
+        "type": "action",
+        "description": "Finish editing (blur or press enter)"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that the new title is saved and displayed"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Rich Text Editor Formatting Tools Functionality",
+    "description": "Verify all rich text formatting options including bold, italic, headings, lists, and code blocks work as intended.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open a document in the editor"
+      },
+      {
+        "type": "action",
+        "description": "Type sample text"
+      },
+      {
+        "type": "action",
+        "description": "Apply bold formatting and verify visually"
+      },
+      {
+        "type": "action",
+        "description": "Apply italic formatting and verify visually"
+      },
+      {
+        "type": "action",
+        "description": "Apply various heading levels and verify appearance"
+      },
+      {
+        "type": "action",
+        "description": "Create ordered and unordered lists and verify structure"
+      },
+      {
+        "type": "action",
+        "description": "Insert code blocks and verify formatting"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify rendering reflects applied formatting correctly and content saves properly"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Knowledge Sidebar: Add New Knowledge Item",
+    "description": "Ensure users can add a new knowledge item with title and content linked to the current document.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open a document in the editor"
+      },
+      {
+        "type": "action",
+        "description": "Open the Knowledge Sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Click 'Add Knowledge Item' button"
+      },
+      {
+        "type": "action",
+        "description": "Input title and content for the knowledge item"
+      },
+      {
+        "type": "action",
+        "description": "Submit the new knowledge item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify knowledge item is listed in the sidebar and saved in backend"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Knowledge Sidebar: Edit Existing Knowledge Item",
+    "description": "Verify that users can edit title and content of existing knowledge items and the changes persist.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open a document with existing knowledge items"
+      },
+      {
+        "type": "action",
+        "description": "Open Knowledge Sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Select a knowledge item and edit its title and content"
+      },
+      {
+        "type": "action",
+        "description": "Save the changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify updated knowledge item is saved and displayed correctly"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Knowledge Sidebar: Delete Knowledge Item",
+    "description": "Verify that knowledge items can be deleted and are removed from the list and backend.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open Knowledge Sidebar with existing knowledge items"
+      },
+      {
+        "type": "action",
+        "description": "Initiate delete action for a knowledge item"
+      },
+      {
+        "type": "action",
+        "description": "Confirm deletion in confirmation dialog"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify knowledge item is removed from list and no longer accessible"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Add Selected Text as AI Context Snippet",
+    "description": "Verify that selected text in the editor can be added as context snippet for AI chat with management control UI.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open a document in the editor"
+      },
+      {
+        "type": "action",
+        "description": "Select a portion of text"
+      },
+      {
+        "type": "action",
+        "description": "Use context menu or button to add selection as AI snippet"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify snippet appears as a visual pill in AI Chat Sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Remove the snippet via UI controls"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify snippet is removed from chat context"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "AI Chat Sidebar Provides Context-Aware Responses",
+    "description": "Validate AI assistant in chat sidebar delivers responses influenced by document content, knowledge items, and user AI instructions.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open a document with content and knowledge items"
+      },
+      {
+        "type": "action",
+        "description": "Open AI Chat Sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Send a query to the AI assistant"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify AI response reflects context from document, knowledge, and instructions"
+      },
+      {
+        "type": "action",
+        "description": "Insert AI-generated text into the document"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify inserted AI text appears correctly in the editor"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Global AI Instructions Applied from Profile Settings",
+    "description": "Verify that global AI assistant instructions set in profile settings are applied during AI chat interactions.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to Profile Settings page"
+      },
+      {
+        "type": "action",
+        "description": "Set or modify global AI instructions"
+      },
+      {
+        "type": "action",
+        "description": "Save profile settings"
+      },
+      {
+        "type": "action",
+        "description": "Open AI Chat Sidebar in any document"
+      },
+      {
+        "type": "action",
+        "description": "Send a query to AI assistant"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm AI behavior includes global instructions in its response"
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Override AI Instructions with Document-Specific Settings",
+    "description": "Ensure document-specific AI instructions override global settings for the AI chat in that document.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open a document and set specific AI instructions"
+      },
+      {
+        "type": "action",
+        "description": "Save document-specific AI instructions"
+      },
+      {
+        "type": "action",
+        "description": "Open AI Chat Sidebar for that document"
+      },
+      {
+        "type": "action",
+        "description": "Send a query to AI assistant"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify AI response respects document-specific AI instructions instead of global ones"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "Subscription Trial Flow Handling",
+    "description": "Test that new users can access trial subscription, see trial duration, and transition to paid plans smoothly.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Create a new user and login"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify trial page is presented with trial details"
+      },
+      {
+        "type": "action",
+        "description": "Complete trial signup or upgrade via checkout"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify successful subscription upgrade and access to full features"
+      }
+    ]
+  },
+  {
+    "id": "TC019",
+    "title": "Subscription Checkout Flow",
+    "description": "Verify that the payment checkout flow via Polar.sh works correctly and updates subscription status accordingly.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login with trial or free user"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to subscription upgrade page"
+      },
+      {
+        "type": "action",
+        "description": "Enter payment details and submit"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify successful payment and updated subscription status is reflected in the app"
+      }
+    ]
+  },
+  {
+    "id": "TC020",
+    "title": "Protected Routes Enforce Authentication and Subscription",
+    "description": "Test route guards to ensure only authenticated users with valid subscription access dashboard, editor, and profile pages.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Attempt to access dashboard without login"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify redirect to sign-in page"
+      },
+      {
+        "type": "action",
+        "description": "Login with expired subscription"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to access editor"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify redirect to subscription or trial page"
+      },
+      {
+        "type": "action",
+        "description": "Login with active subscription"
+      },
+      {
+        "type": "action",
+        "description": "Access dashboard, editor, and profile pages"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify full access granted"
+      }
+    ]
+  },
+  {
+    "id": "TC021",
+    "title": "Update User Profile Name and Email",
+    "description": "Verify users can edit their name and email in Profile Settings and changes persist after saving.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to Profile Settings page"
+      },
+      {
+        "type": "action",
+        "description": "Modify the user name field"
+      },
+      {
+        "type": "action",
+        "description": "Modify the email field"
+      },
+      {
+        "type": "action",
+        "description": "Save changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify updated name and email are saved and displayed"
+      }
+    ]
+  },
+  {
+    "id": "TC022",
+    "title": "Real-Time Synchronization of Documents",
+    "description": "Test real-time sync for documents when multiple clients edit the same document simultaneously.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open the same document on two different clients logged in with the same user"
+      },
+      {
+        "type": "action",
+        "description": "Make edits in client A"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify changes appear in real-time in client B"
+      },
+      {
+        "type": "action",
+        "description": "Make edits in client B"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify changes appear in real-time in client A"
+      }
+    ]
+  },
+  {
+    "id": "TC023",
+    "title": "UI Components Conform to Design System",
+    "description": "Validate critical UI components such as buttons, cards, inputs, and dialogs adhere to design specifications for consistency.",
+    "category": "ui",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Load pages containing buttons, cards, inputs, and confirmation dialogs"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify fonts, colors, spacing, border radii, and hover/focus states match style guide"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify components behave correctly on different screen sizes and devices"
+      }
+    ]
+  },
+  {
+    "id": "TC024",
+    "title": "Account Dropdown Navigates to Profile and Supports Sign Out",
+    "description": "Ensure account dropdown menu allows navigation to profile settings and signing out logs user out.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login and open account dropdown menu in header"
+      },
+      {
+        "type": "action",
+        "description": "Select 'Profile Settings' option"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify navigation to Profile Settings page"
+      },
+      {
+        "type": "action",
+        "description": "Open account dropdown again"
+      },
+      {
+        "type": "action",
+        "description": "Click 'Sign Out' option"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user is logged out and redirected to sign-in or landing page"
+      }
+    ]
+  },
+  {
+    "id": "TC025",
+    "title": "Clear AI Chat Sidebar Message History",
+    "description": "Verify that users can clear the AI chat history and the chat UI resets accordingly.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open AI Chat Sidebar and send several messages"
+      },
+      {
+        "type": "action",
+        "description": "Use the clear chat history control"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify all previous messages are removed from UI and chat state"
+      }
+    ]
+  }
+]

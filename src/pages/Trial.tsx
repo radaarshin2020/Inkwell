@@ -19,7 +19,7 @@ export function Trial({ userEmail, onSuccess }: TrialProps) {
       <TrialPopup userEmail={userEmail} onSuccess={onSuccess} />
       
       {/* Logout link positioned at bottom of screen */}
-      <div className="fixed bottom-6 left-0 right-0 text-center z-50">
+      <div className="fixed bottom-3 left-0 right-0 text-center z-50">
         <p className="text-sm text-ink-400">
           Logged in with the wrong account?{' '}
           <Button

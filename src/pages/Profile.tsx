@@ -4,17 +4,25 @@ import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
+import { Textarea } from '../components/ui/Textarea';
 import { AccountDropdown } from '../components/AccountDropdown';
 
 export function Profile() {
   const navigate = useNavigate();
   const user = useQuery(api.users.getCurrentUser);
+  const userSettings = useQuery(api.users.getUserSettings);
   const updateProfile = useMutation(api.users.updateProfile);
+  const updateAIInstructions = useMutation(api.users.updateAIInstructions);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  
+  // AI Instructions state
+  const [aiInstructions, setAiInstructions] = useState('');
+  const [isSavingAI, setIsSavingAI] = useState(false);
+  const [saveAISuccess, setSaveAISuccess] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -22,6 +30,12 @@ export function Profile() {
       setEmail(user.email);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (userSettings) {
+      setAiInstructions(userSettings.aiSystemInstructions || '');
+    }
+  }, [userSettings]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,6 +54,23 @@ export function Profile() {
   };
 
   const hasChanges = user && (name.trim() !== user.name || email.trim() !== user.email);
+  const hasAIChanges = userSettings !== undefined && aiInstructions !== (userSettings?.aiSystemInstructions || '');
+
+  const handleSaveAIInstructions = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSavingAI(true);
+    setSaveAISuccess(false);
+
+    try {
+      await updateAIInstructions({ aiSystemInstructions: aiInstructions });
+      setSaveAISuccess(true);
+      setTimeout(() => setSaveAISuccess(false), 3000);
+    } catch (error) {
+      console.error('Failed to update AI instructions:', error);
+    } finally {
+      setIsSavingAI(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-cream-100">
@@ -154,6 +185,72 @@ export function Profile() {
             </div>
           </form>
         )}
+
+        {/* AI Instructions Section */}
+        <div className="mt-8">
+          <h2 className="font-serif text-2xl font-semibold text-ink-800 mb-2">
+            AI Assistant Settings
+          </h2>
+          <p className="text-ink-500 mb-6">
+            Set global instructions that guide how the AI assistant responds across all your documents
+          </p>
+
+          <form onSubmit={handleSaveAIInstructions} className="bg-cream-50 rounded-2xl p-8 shadow-soft">
+            <div className="flex items-center gap-3 mb-6 pb-6 border-b border-cream-200">
+              <div className="w-12 h-12 bg-accent-100 text-accent-600 rounded-xl flex items-center justify-center">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-2.47 2.47a3 3 0 01-2.12.878H9.59a3 3 0 01-2.12-.878L5 14.5m14 0v4.375a2.625 2.625 0 01-2.625 2.625H7.625A2.625 2.625 0 015 18.875V14.5" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-medium text-ink-800">
+                  Global AI Instructions
+                </h3>
+                <p className="text-sm text-ink-500">
+                  These instructions apply to all documents
+                </p>
+              </div>
+            </div>
+
+            <Textarea
+              id="aiInstructions"
+              value={aiInstructions}
+              onChange={(e) => setAiInstructions(e.target.value)}
+              placeholder="Enter instructions for the AI assistant, such as:&#10;• Use a formal, professional tone&#10;• Write in British English&#10;• Keep responses concise and to the point&#10;• Avoid using jargon"
+              rows={6}
+              className="mb-4"
+            />
+
+            <p className="text-xs text-ink-400 mb-6">
+              Tip: Include tone preferences, writing style guidelines, or specific formatting requirements.
+            </p>
+
+            <div className="flex items-center gap-4">
+              <Button type="submit" disabled={!hasAIChanges || isSavingAI}>
+                {isSavingAI ? (
+                  <>
+                    <svg className="w-5 h-5 mr-2 animate-spin" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Saving...
+                  </>
+                ) : (
+                  'Save Instructions'
+                )}
+              </Button>
+
+              {saveAISuccess && (
+                <span className="flex items-center gap-2 text-green-600">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Instructions saved
+                </span>
+              )}
+            </div>
+          </form>
+        </div>
       </main>
     </div>
   );

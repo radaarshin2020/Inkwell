@@ -129,8 +129,12 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
 function PublicRoute({ children }: { children: React.ReactNode }) {
   const { isLoading, isAuthenticated } = useConvexAuth();
-
-  if (isLoading) {
+  // Track if we've rendered children to avoid unmounting during auth transitions
+  const hasRenderedRef = useRef(false);
+  
+  // Only show loading screen on initial load, not during auth transitions
+  // This prevents the Auth form from unmounting and losing form data
+  if (isLoading && !hasRenderedRef.current) {
     return (
       <div className="min-h-screen bg-cream-100 flex items-center justify-center">
         <div className="flex items-center gap-3 text-ink-500">
@@ -148,6 +152,9 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
     return <Navigate to="/dashboard" replace />;
   }
 
+  // Mark that we've rendered children at least once
+  hasRenderedRef.current = true;
+  
   return <>{children}</>;
 }
 

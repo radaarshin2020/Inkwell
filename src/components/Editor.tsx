@@ -1,16 +1,32 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { Button } from './ui/Button';
 
 interface EditorProps {
   content: string;
   onChange: (content: string) => void;
   placeholder?: string;
+  onAddToContext?: (text: string) => void;
 }
 
-export function Editor({ content, onChange, placeholder = 'Start writing...' }: EditorProps) {
+interface SelectionPopupState {
+  visible: boolean;
+  top: number;
+  left: number;
+  text: string;
+}
+
+export function Editor({ content, onChange, placeholder = 'Start writing...', onAddToContext }: EditorProps) {
+  const [selectionPopup, setSelectionPopup] = useState<SelectionPopupState>({
+    visible: false,
+    top: 0,
+    left: 0,
+    text: '',
+  });
+  const editorContainerRef = useRef<HTMLDivElement>(null);
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -29,6 +45,68 @@ export function Editor({ content, onChange, placeholder = 'Start writing...' }: 
     },
   });
 
+  // Handle text selection
+  const handleSelectionChange = useCallback(() => {
+    if (!editor || !editorContainerRef.current) return;
+
+    const { from, to } = editor.state.selection;
+    const selectedText = editor.state.doc.textBetween(from, to, ' ');
+
+    if (selectedText.trim().length > 0) {
+      // Get the DOM selection to position the popup
+      const domSelection = window.getSelection();
+      if (domSelection && domSelection.rangeCount > 0) {
+        const range = domSelection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        const containerRect = editorContainerRef.current.getBoundingClientRect();
+
+        setSelectionPopup({
+          visible: true,
+          top: rect.top - containerRect.top - 40,
+          left: rect.left - containerRect.left + rect.width / 2,
+          text: selectedText.trim(),
+        });
+      }
+    } else {
+      setSelectionPopup((prev) => ({ ...prev, visible: false }));
+    }
+  }, [editor]);
+
+  // Listen for selection changes
+  useEffect(() => {
+    if (!editor) return;
+
+    editor.on('selectionUpdate', handleSelectionChange);
+    return () => {
+      editor.off('selectionUpdate', handleSelectionChange);
+    };
+  }, [editor, handleSelectionChange]);
+
+  // Hide popup when clicking outside
+  useEffect(() => {
+    const handleMouseDown = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('.selection-popup')) {
+        // Delay hiding to allow click on the popup button
+        setTimeout(() => {
+          setSelectionPopup((prev) => ({ ...prev, visible: false }));
+        }, 100);
+      }
+    };
+
+    document.addEventListener('mousedown', handleMouseDown);
+    return () => document.removeEventListener('mousedown', handleMouseDown);
+  }, []);
+
+  const handleAddToContext = () => {
+    if (selectionPopup.text && onAddToContext) {
+      onAddToContext(selectionPopup.text);
+      setSelectionPopup((prev) => ({ ...prev, visible: false }));
+      // Clear the selection
+      editor?.commands.setTextSelection(editor.state.selection.from);
+    }
+  };
+
   // Sync external content changes
   useEffect(() => {
     if (editor && content !== editor.getHTML()) {
@@ -41,7 +119,26 @@ export function Editor({ content, onChange, placeholder = 'Start writing...' }: 
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full relative" ref={editorContainerRef}>
+      {/* Selection Popup */}
+      {selectionPopup.visible && onAddToContext && (
+        <div
+          className="selection-popup absolute z-50 transform -translate-x-1/2"
+          style={{ top: selectionPopup.top, left: selectionPopup.left }}
+        >
+          <button
+            onClick={handleAddToContext}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-ink-700 text-cream-50 rounded-lg shadow-lg hover:bg-ink-800 transition-colors text-sm font-medium"
+            title="Add to AI context"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Add to AI
+          </button>
+        </div>
+      )}
+
       {/* Toolbar */}
       <div className="flex items-center gap-1 p-3 border-b border-cream-200 bg-cream-50 rounded-t-xl flex-wrap">
         <ToolbarButton

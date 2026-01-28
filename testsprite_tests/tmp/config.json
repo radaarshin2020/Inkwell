@@ -1,0 +1,18 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:5173",
+  "loginUser": "arshinkovska@live.com",
+  "loginPassword": "R@d@2024",
+  "executionArgs": {
+    "projectName": "Inkwell",
+    "projectPath": "d:\\TUTS\\AI\\Inkwell",
+    "testIds": [],
+    "additionalInstruction": "",
+    "envs": {
+      "API_KEY": "sk-user-xY0JvvX7tIcQyUQJjEvXV-dhhwrdZFiQZG-wQJ6H7au5voCdGbZymDi1bmJEYvMKxv0ZTOmuMdyWEyMUtTnL2kCHxjZNsTvI8ahbL3w0F2BktPCst45cml8jDdItqDO0avI"
+    }
+  },
+  "proxy": "http://ab9984c6-810c-4d1c-b32d-6e6ea5539e7b:RDPSf7PW5zVArVPdyefntY5l1hLaEMUk@tun.testsprite.com:8080"
+}

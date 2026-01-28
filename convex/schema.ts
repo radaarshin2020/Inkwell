@@ -5,11 +5,18 @@ import { authTables } from "@convex-dev/auth/server";
 export default defineSchema({
   ...authTables,
   
+  // User settings for global AI instructions
+  userSettings: defineTable({
+    userId: v.id("users"),
+    aiSystemInstructions: v.optional(v.string()),
+  }).index("by_user", ["userId"]),
+  
   documents: defineTable({
     userId: v.id("users"),
     title: v.string(),
     content: v.string(),
     updatedAt: v.number(),
+    aiSystemInstructions: v.optional(v.string()),
   }).index("by_user", ["userId"]),
 
   knowledge: defineTable({

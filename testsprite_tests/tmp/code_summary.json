@@ -1,0 +1,90 @@
+{
+  "tech_stack": [
+    "TypeScript",
+    "React 19",
+    "Vite 7",
+    "Tailwind CSS 4",
+    "Convex (Real-time Backend)",
+    "TipTap (Rich Text Editor)",
+    "OpenAI (AI Chat)",
+    "Polar (Payments/Subscriptions)",
+    "React Router DOM 7"
+  ],
+  "features": [
+    {
+      "name": "Landing Page",
+      "description": "Public marketing landing page with hero section, feature highlights, and call-to-action buttons for sign up/sign in",
+      "files": ["src/pages/Landing.tsx"]
+    },
+    {
+      "name": "Authentication",
+      "description": "User authentication with email/password sign in and sign up flows using Convex Auth",
+      "files": ["src/pages/Auth.tsx", "convex/auth.ts", "convex/auth.config.ts"]
+    },
+    {
+      "name": "Dashboard",
+      "description": "Main document management view displaying user's documents with create and delete functionality",
+      "files": ["src/pages/Dashboard.tsx", "src/components/DocumentCard.tsx"]
+    },
+    {
+      "name": "Document Editor",
+      "description": "Full-featured document editing page with rich text editor, knowledge sidebar, and AI chat assistant. Includes auto-save, title editing, and sidebar toggles",
+      "files": ["src/pages/DocumentEditor.tsx", "src/components/Editor.tsx"]
+    },
+    {
+      "name": "Rich Text Editor",
+      "description": "TipTap-based WYSIWYG editor with placeholder support and text selection context menu for AI interactions",
+      "files": ["src/components/Editor.tsx"]
+    },
+    {
+      "name": "Knowledge Sidebar",
+      "description": "Left sidebar for managing reference documents and knowledge items attached to a document",
+      "files": ["src/components/KnowledgeSidebar.tsx", "convex/knowledge.ts"]
+    },
+    {
+      "name": "AI Chat Sidebar (Inky)",
+      "description": "Right sidebar featuring AI assistant chat interface with message history, text insertion, context snippets, and document-specific AI instructions",
+      "files": ["src/components/AIChatSidebar.tsx", "convex/ai.ts", "convex/messages.ts"]
+    },
+    {
+      "name": "Profile Settings",
+      "description": "User profile management page with name/email editing and global AI assistant instructions configuration",
+      "files": ["src/pages/Profile.tsx"]
+    },
+    {
+      "name": "Subscription/Payments",
+      "description": "Polar-based subscription system with trial page, checkout flow, and subscription status verification",
+      "files": ["src/pages/Trial.tsx", "src/pages/CheckoutSuccess.tsx", "src/components/PolarCheckout.tsx", "convex/subscriptions.ts"]
+    },
+    {
+      "name": "Account Dropdown",
+      "description": "Header account menu with navigation to profile, sign out functionality",
+      "files": ["src/components/AccountDropdown.tsx"]
+    },
+    {
+      "name": "Protected Routes",
+      "description": "Route protection system checking authentication and subscription status before allowing access to app features",
+      "files": ["src/App.tsx"]
+    },
+    {
+      "name": "UI Components",
+      "description": "Reusable UI component library including Button, Card, Input, Textarea, and ConfirmDialog",
+      "files": ["src/components/ui/Button.tsx", "src/components/ui/Card.tsx", "src/components/ui/Input.tsx", "src/components/ui/Textarea.tsx", "src/components/ui/ConfirmDialog.tsx"]
+    },
+    {
+      "name": "Documents API",
+      "description": "Convex backend functions for document CRUD operations with user ownership",
+      "files": ["convex/documents.ts", "convex/schema.ts"]
+    },
+    {
+      "name": "Users API",
+      "description": "Convex backend functions for user profile and settings management including AI instructions",
+      "files": ["convex/users.ts"]
+    },
+    {
+      "name": "Style Guide",
+      "description": "Internal style guide page showcasing UI components and design system",
+      "files": ["src/pages/StyleGuide.tsx"]
+    }
+  ]
+}

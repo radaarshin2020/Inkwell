@@ -54,6 +54,7 @@ export const update = mutation({
     id: v.id("documents"),
     title: v.optional(v.string()),
     content: v.optional(v.string()),
+    aiSystemInstructions: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
@@ -64,7 +65,7 @@ export const update = mutation({
     if (!document || document.userId !== userId) {
       throw new Error("Document not found");
     }
-    const updates: { title?: string; content?: string; updatedAt: number } = {
+    const updates: { title?: string; content?: string; aiSystemInstructions?: string; updatedAt: number } = {
       updatedAt: Date.now(),
     };
     if (args.title !== undefined) {
@@ -72,6 +73,9 @@ export const update = mutation({
     }
     if (args.content !== undefined) {
       updates.content = args.content;
+    }
+    if (args.aiSystemInstructions !== undefined) {
+      updates.aiSystemInstructions = args.aiSystemInstructions;
     }
     await ctx.db.patch(args.id, updates);
   },

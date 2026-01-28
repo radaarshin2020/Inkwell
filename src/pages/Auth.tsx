@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useRef, useEffect, useCallback } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { useAuthActions } from '@convex-dev/auth/react';
 import { Button } from '../components/ui/Button';
@@ -9,15 +9,38 @@ export function Auth() {
   const [searchParams] = useSearchParams();
   const { signIn } = useAuthActions();
   
-  const [isSignUp, setIsSignUp] = useState(searchParams.get('mode') === 'signup');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  // Use refs to track form values to prevent loss during re-renders
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  
+  // Track if component is mounted to prevent state updates after unmount
+  const isMountedRef = useRef(true);
+  
+  const [isSignUp, setIsSignUp] = useState(() => searchParams.get('mode') === 'signup');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = useCallback(async (e: FormEvent) => {
     e.preventDefault();
+    
+    // Get values from refs to ensure we have the latest values
+    const email = emailRef.current?.value || '';
+    const password = passwordRef.current?.value || '';
+    const name = nameRef.current?.value || '';
+    
+    if (!email || !password) {
+      setError('Please enter both email and password.');
+      return;
+    }
+    
     setError('');
     setLoading(true);
 
@@ -31,17 +54,21 @@ export function Auth() {
       }
       
       const result = await signIn('password', formData);
+      
+      // Only update state if still mounted
+      if (!isMountedRef.current) return;
+      
       // If signIn returns a redirect URL, we might need to handle it
       // Otherwise, PublicRoute will auto-redirect when auth state updates
-      if (result?.signingIn) {
-        // Auth is in progress, wait for state to update
-        // PublicRoute will handle redirect when isAuthenticated becomes true
-      } else if (result?.redirect) {
+      if (result?.redirect) {
         // Handle any redirect if provided
         window.location.href = result.redirect.toString();
       }
       // Don't navigate manually - let PublicRoute handle it when auth state changes
     } catch (err: unknown) {
+      // Only update state if still mounted
+      if (!isMountedRef.current) return;
+      
       console.error('Auth error:', err);
       const errorMessage = err instanceof Error ? err.message : String(err);
       if (errorMessage.includes('Invalid password') || errorMessage.includes('Could not verify')) {
@@ -55,9 +82,12 @@ export function Auth() {
         );
       }
     } finally {
-      setLoading(false);
+      // Only update state if still mounted
+      if (isMountedRef.current) {
+        setLoading(false);
+      }
     }
-  };
+  }, [isSignUp, signIn]);
 
   return (
     <div className="min-h-screen bg-cream-100 flex flex-col">
@@ -92,34 +122,38 @@ export function Auth() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {isSignUp && (
+            {/* Use key prop to ensure React correctly identifies each input during mode switches */}
+            {/* Always render name field container to maintain stable DOM structure */}
+            <div key="name-container" className={isSignUp ? '' : 'hidden'}>
               <Input
+                ref={nameRef}
                 id="name"
                 label="Name"
                 type="text"
                 placeholder="Your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                autoComplete="name"
               />
-            )}
+            </div>
             <Input
+              key="email"
+              ref={emailRef}
               id="email"
               label="Email"
               type="email"
               placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="email"
             />
             <Input
+              key="password"
+              ref={passwordRef}
               id="password"
               label="Password"
               type="password"
               placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}
+              autoComplete={isSignUp ? 'new-password' : 'current-password'}
             />
             
             {error && (

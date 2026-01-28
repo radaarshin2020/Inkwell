@@ -1,0 +1,192 @@
+{
+  "meta": {
+    "project": "Inkwell",
+    "date": "2026-01-21",
+    "prepared_by": "Software Development Manager"
+  },
+  "product_overview": "Inkwell is an AI-powered document editor designed to help writers and content creators produce high-quality content efficiently. The product features a distraction-free rich text editor combined with an AI assistant that leverages a personalized knowledge library and customizable AI instructions to provide context-aware writing assistance. It integrates user authentication, subscription management, and real-time collaboration features to deliver a seamless writing experience.",
+  "core_goals": [
+    "Provide users with a modern, distraction-free rich text editing experience.",
+    "Integrate AI assistance that understands user context using knowledge items and personalized instructions for improved writing support.",
+    "Enable users to organize and manage documents effortlessly with real-time synchronization and auto-save.",
+    "Allow users to maintain reference materials through a dedicated knowledge library tied to documents.",
+    "Offer a robust authentication and subscription system to protect content and monetize usage.",
+    "Facilitate easy access to user profile management and application settings."
+  ],
+  "key_features": [
+    "Landing Page with marketing content and clear call-to-actions for sign-up and sign-in.",
+    "User Authentication with email/password sign-in and sign-up flows secured by Convex Auth.",
+    "Dashboard for document management featuring creation, viewing, and deletion of documents with real-time sync.",
+    "Full-featured Document Editor with a TipTap-based rich text editor supporting multiple formatting tools, auto-save, and inline title editing.",
+    "Knowledge Sidebar allowing users to add, edit, and delete knowledge items associated with documents, aiding AI context understanding.",
+    "AI Chat Sidebar (Inky) providing an interactive AI assistant that uses document content, knowledge items, and personalized instructions for context-aware suggestions.",
+    "Text Selection Context feature that enables users to add selected text snippets to the AI chat as context with easy management controls.",
+    "AI Instructions system allowing global and per-document customization of AI assistant behavior via user settings and document-specific instructions.",
+    "Profile Settings page for managing user name, email, and global AI instructions.",
+    "Subscription and Payments integration via Polar.sh including trial management, checkout flow, and subscription status handling.",
+    "Protected Routes ensuring secure access based on authentication and subscription status.",
+    "Reusable UI Components such as buttons, cards, inputs, and confirmation dialogs following consistent design principles."
+  ],
+  "user_flow_summary": [
+    "New users land on the public marketing Landing Page and can sign up or sign in via the Auth page.",
+    "Upon authentication and valid subscription, users access the Dashboard to view their documents or create new ones.",
+    "Selecting or creating a document navigates users to the Document Editor where they can write and edit content, manage the document title, toggle sidebars, and interact with AI assistant.",
+    "Users can open the Knowledge Sidebar to create and manage reference knowledge that helps inform AI responses.",
+    "The AI Chat Sidebar allows users to engage the AI assistant with context-aware chats, insert AI-generated text into the document, and clear chat history.",
+    "Selected text within the editor can be added as snippet context for AI chat, managed via visual pills.",
+    "Users can configure global AI instructions in Profile Settings and override them with per-document AI instructions.",
+    "Subscription management and payments are handled through integrated Polar checkout flows and trial screens.",
+    "Account management and sign out are accessible through the Account Dropdown in the header.",
+    "Route protections enforce authentication and subscription checks before allowing access to core features."
+  ],
+  "validation_criteria": [
+    "All users must be able to sign up and sign in successfully with email/password authentication.",
+    "Only authenticated users with an active subscription can access Dashboard and Document Editor features.",
+    "Documents created by users must autosave automatically with minimal delay (within 1 second).",
+    "Rich text editor formatting tools (bold, italic, headings, lists, code blocks) should function as expected.",
+    "Knowledge Sidebar must allow adding, editing, and deleting knowledge items associated with the current document.",
+    "AI Chat Sidebar should provide context-aware responses using document content, knowledge items, and user AI instructions.",
+    "Selected text can be successfully added as AI context snippets and included in AI chat input.",
+    "Global and document-specific AI instructions should correctly influence AI responses.",
+    "Subscription status must be accurately tracked and enforced through protected routes.",
+    "Users should be able to update profile details including name, email, and global AI instructions.",
+    "Critical UI components (buttons, cards, inputs) must adhere to design system specifications for consistency.",
+    "Real-time synchronization of documents and chat messages must operate reliably via the Convex backend.",
+    "Payment flows must correctly handle trial, checkout, success, and subscription state transitions without errors."
+  ],
+  "code_summary": {
+    "tech_stack": [
+      "TypeScript",
+      "React 19",
+      "Vite 7",
+      "Tailwind CSS 4",
+      "Convex (Real-time Backend)",
+      "TipTap (Rich Text Editor)",
+      "OpenAI (AI Chat)",
+      "Polar (Payments/Subscriptions)",
+      "React Router DOM 7"
+    ],
+    "features": [
+      {
+        "name": "Landing Page",
+        "description": "Public marketing landing page with hero section, feature highlights, and call-to-action buttons for sign up/sign in",
+        "files": [
+          "src/pages/Landing.tsx"
+        ]
+      },
+      {
+        "name": "Authentication",
+        "description": "User authentication with email/password sign in and sign up flows using Convex Auth",
+        "files": [
+          "src/pages/Auth.tsx",
+          "convex/auth.ts",
+          "convex/auth.config.ts"
+        ]
+      },
+      {
+        "name": "Dashboard",
+        "description": "Main document management view displaying user's documents with create and delete functionality",
+        "files": [
+          "src/pages/Dashboard.tsx",
+          "src/components/DocumentCard.tsx"
+        ]
+      },
+      {
+        "name": "Document Editor",
+        "description": "Full-featured document editing page with rich text editor, knowledge sidebar, and AI chat assistant. Includes auto-save, title editing, and sidebar toggles",
+        "files": [
+          "src/pages/DocumentEditor.tsx",
+          "src/components/Editor.tsx"
+        ]
+      },
+      {
+        "name": "Rich Text Editor",
+        "description": "TipTap-based WYSIWYG editor with placeholder support and text selection context menu for AI interactions",
+        "files": [
+          "src/components/Editor.tsx"
+        ]
+      },
+      {
+        "name": "Knowledge Sidebar",
+        "description": "Left sidebar for managing reference documents and knowledge items attached to a document",
+        "files": [
+          "src/components/KnowledgeSidebar.tsx",
+          "convex/knowledge.ts"
+        ]
+      },
+      {
+        "name": "AI Chat Sidebar (Inky)",
+        "description": "Right sidebar featuring AI assistant chat interface with message history, text insertion, context snippets, and document-specific AI instructions",
+        "files": [
+          "src/components/AIChatSidebar.tsx",
+          "convex/ai.ts",
+          "convex/messages.ts"
+        ]
+      },
+      {
+        "name": "Profile Settings",
+        "description": "User profile management page with name/email editing and global AI assistant instructions configuration",
+        "files": [
+          "src/pages/Profile.tsx"
+        ]
+      },
+      {
+        "name": "Subscription/Payments",
+        "description": "Polar-based subscription system with trial page, checkout flow, and subscription status verification",
+        "files": [
+          "src/pages/Trial.tsx",
+          "src/pages/CheckoutSuccess.tsx",
+          "src/components/PolarCheckout.tsx",
+          "convex/subscriptions.ts"
+        ]
+      },
+      {
+        "name": "Account Dropdown",
+        "description": "Header account menu with navigation to profile, sign out functionality",
+        "files": [
+          "src/components/AccountDropdown.tsx"
+        ]
+      },
+      {
+        "name": "Protected Routes",
+        "description": "Route protection system checking authentication and subscription status before allowing access to app features",
+        "files": [
+          "src/App.tsx"
+        ]
+      },
+      {
+        "name": "UI Components",
+        "description": "Reusable UI component library including Button, Card, Input, Textarea, and ConfirmDialog",
+        "files": [
+          "src/components/ui/Button.tsx",
+          "src/components/ui/Card.tsx",
+          "src/components/ui/Input.tsx",
+          "src/components/ui/Textarea.tsx",
+          "src/components/ui/ConfirmDialog.tsx"
+        ]
+      },
+      {
+        "name": "Documents API",
+        "description": "Convex backend functions for document CRUD operations with user ownership",
+        "files": [
+          "convex/documents.ts",
+          "convex/schema.ts"
+        ]
+      },
+      {
+        "name": "Users API",
+        "description": "Convex backend functions for user profile and settings management including AI instructions",
+        "files": [
+          "convex/users.ts"
+        ]
+      },
+      {
+        "name": "Style Guide",
+        "description": "Internal style guide page showcasing UI components and design system",
+        "files": [
+          "src/pages/StyleGuide.tsx"
+        ]
+      }
+    ]
+  }
+}

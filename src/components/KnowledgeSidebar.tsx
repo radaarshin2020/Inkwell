@@ -5,6 +5,7 @@ import type { Id } from '../../convex/_generated/dataModel';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 import { Textarea } from './ui/Textarea';
+import { ConfirmDialog } from './ui/ConfirmDialog';
 
 interface KnowledgeSidebarProps {
   documentId: Id<"documents">;
@@ -15,6 +16,7 @@ export function KnowledgeSidebar({ documentId }: KnowledgeSidebarProps) {
   const [editingId, setEditingId] = useState<Id<"knowledge"> | null>(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [deleteId, setDeleteId] = useState<Id<"knowledge"> | null>(null);
 
   const knowledgeItems = useQuery(api.knowledge.list, { documentId });
   const createKnowledge = useMutation(api.knowledge.create);
@@ -52,9 +54,14 @@ export function KnowledgeSidebar({ documentId }: KnowledgeSidebarProps) {
     setIsAdding(false);
   };
 
-  const handleDelete = async (id: Id<"knowledge">) => {
-    if (confirm('Delete this knowledge item?')) {
-      await deleteKnowledge({ id });
+  const handleDeleteClick = (id: Id<"knowledge">) => {
+    setDeleteId(id);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (deleteId) {
+      await deleteKnowledge({ id: deleteId });
+      setDeleteId(null);
     }
   };
 
@@ -178,7 +185,7 @@ export function KnowledgeSidebar({ documentId }: KnowledgeSidebarProps) {
                       </svg>
                     </Button>
                     <Button
-                      onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDeleteClick(item._id)}
                       variant="ghost"
                       size="sm"
                       className="p-1 text-ink-400 hover:text-red-500 hover:bg-red-50"
@@ -198,6 +205,17 @@ export function KnowledgeSidebar({ documentId }: KnowledgeSidebarProps) {
           </div>
         )}
       </div>
+
+      <ConfirmDialog
+        isOpen={deleteId !== null}
+        title="Delete Knowledge"
+        message="Are you sure you want to delete this knowledge item? This action cannot be undone."
+        confirmLabel="Delete"
+        cancelLabel="Cancel"
+        variant="danger"
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeleteId(null)}
+      />
     </div>
   );
 }

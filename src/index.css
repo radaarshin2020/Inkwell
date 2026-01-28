@@ -140,14 +140,27 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-ink-800);
 }
 
-.tiptap ul,
+.tiptap ul {
+  margin: 0 0 1em 1.5em;
+  padding: 0;
+  list-style-type: disc;
+  color: var(--color-ink-700);
+}
+
 .tiptap ol {
   margin: 0 0 1em 1.5em;
   padding: 0;
+  list-style-type: decimal;
+  color: var(--color-ink-700);
 }
 
 .tiptap li {
   margin: 0.25em 0;
+  color: var(--color-ink-700);
+}
+
+.tiptap li::marker {
+  color: var(--color-ink-700);
 }
 
 .tiptap blockquote {

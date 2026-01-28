@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
+import { ConfirmDialog } from './ui/ConfirmDialog';
 import type { Id } from '../../convex/_generated/dataModel';
 
 interface DocumentCardProps {
@@ -12,6 +14,7 @@ interface DocumentCardProps {
 
 export function DocumentCard({ id, title, updatedAt, onDelete }: DocumentCardProps) {
   const navigate = useNavigate();
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp);
@@ -34,11 +37,14 @@ export function DocumentCard({ id, title, updatedAt, onDelete }: DocumentCardPro
     });
   };
 
-  const handleDelete = (e: React.MouseEvent) => {
+  const handleDeleteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (confirm('Are you sure you want to delete this document?')) {
-      onDelete(id);
-    }
+    setShowDeleteDialog(true);
+  };
+
+  const handleConfirmDelete = () => {
+    onDelete(id);
+    setShowDeleteDialog(false);
   };
 
   return (
@@ -64,7 +70,7 @@ export function DocumentCard({ id, title, updatedAt, onDelete }: DocumentCardPro
           </p>
         </div>
         <Button
-          onClick={handleDelete}
+          onClick={handleDeleteClick}
           variant="ghost"
           size="sm"
           className="p-2 text-ink-300 hover:text-red-500 hover:bg-red-50 opacity-0 group-hover:opacity-100"
@@ -75,6 +81,17 @@ export function DocumentCard({ id, title, updatedAt, onDelete }: DocumentCardPro
           </svg>
         </Button>
       </div>
+
+      <ConfirmDialog
+        isOpen={showDeleteDialog}
+        title="Delete Document"
+        message="Are you sure you want to delete this document? This action cannot be undone."
+        confirmLabel="Delete"
+        cancelLabel="Cancel"
+        variant="danger"
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setShowDeleteDialog(false)}
+      />
     </Card>
   );
 }

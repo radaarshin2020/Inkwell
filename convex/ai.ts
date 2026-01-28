@@ -15,6 +15,16 @@ export const chat = action({
       documentId: args.documentId,
     });
 
+    // Fetch user's global AI instructions
+    const userSettings = await ctx.runQuery(api.users.getUserSettings, {});
+    const globalInstructions = userSettings?.aiSystemInstructions || "";
+
+    // Fetch document-specific AI instructions
+    const document = await ctx.runQuery(api.documents.get, {
+      id: args.documentId,
+    });
+    const documentInstructions = document?.aiSystemInstructions || "";
+
     // Build context from knowledge
     let knowledgeContext = "";
     if (knowledgeItems.length > 0) {
@@ -24,13 +34,25 @@ export const chat = action({
       }
     }
 
+    // Build custom instructions section
+    let customInstructions = "";
+    if (globalInstructions || documentInstructions) {
+      customInstructions = "\n\n## Custom Instructions:\n";
+      if (globalInstructions) {
+        customInstructions += `\n### User's Global Guidelines:\n${globalInstructions}\n`;
+      }
+      if (documentInstructions) {
+        customInstructions += `\n### Document-Specific Guidelines:\n${documentInstructions}\n`;
+      }
+    }
+
     // Create OpenAI client
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
 
     const systemPrompt = `You are an intelligent writing assistant helping users write and edit documents. You have access to reference knowledge that the user has provided to inform your writing.
-
+${customInstructions}
 Current document content:
 ---
 ${args.documentContent || "(Document is empty)"}
@@ -43,6 +65,7 @@ When the user asks you to write or edit content:
 3. Be helpful and provide well-structured, clear writing
 4. If asked to edit specific sections, make targeted changes
 5. You can suggest improvements or ask clarifying questions if needed
+6. Follow any custom instructions provided by the user above
 
 Respond with the text you've written or edited. If providing a full replacement or addition, make it clear where it should go in the document.`;
 

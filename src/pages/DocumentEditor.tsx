@@ -22,6 +22,7 @@ export function DocumentEditor() {
   const [isSaving, setIsSaving] = useState(false);
   const [showKnowledgeSidebar, setShowKnowledgeSidebar] = useState(true);
   const [showAIChatSidebar, setShowAIChatSidebar] = useState(true);
+  const [contextSnippets, setContextSnippets] = useState<string[]>([]);
   
   // Track if we've initialized from the document
   const initialized = useRef(false);
@@ -35,6 +36,15 @@ export function DocumentEditor() {
       initialized.current = true;
     }
   }, [document]);
+  
+  // Auto-redirect to dashboard when document is deleted
+  // This handles the case where a document is deleted while viewing it
+  useEffect(() => {
+    if (document === null && initialized.current) {
+      // Document was loaded but is now gone (deleted)
+      navigate('/dashboard', { replace: true });
+    }
+  }, [document, navigate]);
   
   // Debounced save
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -78,6 +88,18 @@ export function DocumentEditor() {
     const newContent = content + (content ? '\n\n' : '') + text;
     setContent(newContent);
     debouncedSave(undefined, newContent);
+  };
+
+  const handleAddToContext = (text: string) => {
+    setContextSnippets((prev) => [...prev, text]);
+  };
+
+  const handleRemoveContext = (index: number) => {
+    setContextSnippets((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleClearContext = () => {
+    setContextSnippets([]);
   };
   
   const formatLastSaved = () => {
@@ -211,33 +233,45 @@ export function DocumentEditor() {
       {/* Main Layout */}
       <div className="flex-1 flex overflow-hidden">
         {/* Left Sidebar - Knowledge */}
-        {showKnowledgeSidebar && (
-          <div className="w-72 flex-shrink-0 transition-all duration-300">
+        <div 
+          className={`flex-shrink-0 transition-all duration-300 ease-in-out overflow-hidden ${
+            showKnowledgeSidebar ? 'w-72 opacity-100' : 'w-0 opacity-0'
+          }`}
+        >
+          <div className="w-72 h-full">
             <KnowledgeSidebar documentId={documentId} />
           </div>
-        )}
+        </div>
 
         {/* Main Editor */}
-        <div className="flex-1 p-6 overflow-hidden">
+        <div className="flex-1 p-6 overflow-hidden transition-all duration-300 ease-in-out">
           <div className="h-full max-w-4xl mx-auto">
             <Editor
               content={content}
               onChange={handleContentChange}
               placeholder="Start writing your document..."
+              onAddToContext={handleAddToContext}
             />
           </div>
         </div>
 
         {/* Right Sidebar - AI Chat */}
-        {showAIChatSidebar && (
-          <div className="w-80 flex-shrink-0 transition-all duration-300">
+        <div 
+          className={`flex-shrink-0 transition-all duration-300 ease-in-out overflow-hidden ${
+            showAIChatSidebar ? 'w-80 opacity-100' : 'w-0 opacity-0'
+          }`}
+        >
+          <div className="w-80 h-full">
             <AIChatSidebar
               documentId={documentId}
               documentContent={content}
               onInsertText={handleInsertText}
+              contextSnippets={contextSnippets}
+              onRemoveContext={handleRemoveContext}
+              onClearContext={handleClearContext}
             />
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
