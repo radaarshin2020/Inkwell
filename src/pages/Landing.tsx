@@ -7,7 +7,7 @@ export function Landing() {
       {/* Header */}
       <header className="py-6 px-8">
         <nav className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <svg className="w-8 h-8 text-ink-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M12 19l7-7 3 3-7 7-3-3z" />
               <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
@@ -15,7 +15,7 @@ export function Landing() {
               <circle cx="11" cy="11" r="2" />
             </svg>
             <span className="font-logo text-2xl italic text-ink-800">Inkwell</span>
-          </div>
+          </Link>
           <div className="flex items-center gap-4">
             <Link to="/auth">
               <Button variant="ghost">Sign In</Button>
