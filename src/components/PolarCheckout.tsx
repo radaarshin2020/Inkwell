@@ -7,10 +7,11 @@ interface PolarCheckoutProps {
   onClose: () => void;
 }
 
+// Using Polar Sandbox for testing/education
 const CHECKOUT_LINK = 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_xbMjlzArtAPZg6WdZ8rYyJhF1gl7rVgz6Q0zv2a3UIo/redirect';
 
 export function PolarCheckout({ userEmail, onSuccess, onClose }: PolarCheckoutProps) {
-  const checkoutRef = useRef<ReturnType<typeof PolarEmbedCheckout.create> | null>(null);
+  const checkoutRef = useRef<Awaited<ReturnType<typeof PolarEmbedCheckout.create>> | null>(null);
   const isInitializedRef = useRef(false);
 
   const handleSuccess = useCallback(() => {
@@ -41,15 +42,8 @@ export function PolarCheckout({ userEmail, onSuccess, onClose }: PolarCheckoutPr
         checkoutRef.current = checkout;
 
         // Listen for success event (may fire before redirect)
-        checkout.addEventListener('success', (event: CustomEvent) => {
+        checkout.addEventListener('success', () => {
           console.log('Polar checkout success event received');
-          event.preventDefault();
-          handleSuccess();
-        });
-
-        // Listen for confirmation event (alternative success event)
-        checkout.addEventListener('confirmation', () => {
-          console.log('Polar checkout confirmation event received');
           handleSuccess();
         });
 

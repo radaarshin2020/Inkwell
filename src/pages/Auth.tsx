@@ -1,4 +1,5 @@
-import { useState, FormEvent, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import type { FormEvent } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { useAuthActions } from '@convex-dev/auth/react';
 import { Button } from '../components/ui/Button';

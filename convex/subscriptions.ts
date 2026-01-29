@@ -20,9 +20,10 @@ export const getSubscriptionStatus = query({
     if (!subscription) {
       const user = await ctx.db.get(userId);
       if (user?.email) {
+        const email = user.email;
         subscription = await ctx.db
           .query("subscriptions")
-          .withIndex("by_email", (q) => q.eq("email", user.email))
+          .withIndex("by_email", (q) => q.eq("email", email))
           .first();
       }
     }
@@ -159,9 +160,10 @@ export const linkSubscriptionToCurrentUser = mutation({
       return { linked: false, reason: "no email" };
     }
 
+    const email = user.email;
     const subscription = await ctx.db
       .query("subscriptions")
-      .withIndex("by_email", (q) => q.eq("email", user.email))
+      .withIndex("by_email", (q) => q.eq("email", email))
       .first();
 
     if (!subscription) {
@@ -191,10 +193,11 @@ export const debugCreateSubscription = mutation({
       return { success: false, error: "no email on user" };
     }
 
+    const email = user.email;
     // Check if subscription already exists
     const existing = await ctx.db
       .query("subscriptions")
-      .withIndex("by_email", (q) => q.eq("email", user.email))
+      .withIndex("by_email", (q) => q.eq("email", email))
       .first();
 
     if (existing) {

@@ -129,7 +129,7 @@ export function Profile() {
                       .join('')
                       .toUpperCase()
                       .slice(0, 2)
-                  : user.email?.slice(0, 2).toUpperCase() ?? '?'}
+                  : user?.email?.slice(0, 2).toUpperCase() ?? '?'}
               </div>
               <div>
                 <h2 className="font-medium text-ink-800 text-lg">
