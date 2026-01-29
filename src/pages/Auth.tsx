@@ -93,25 +93,25 @@ export function Auth() {
   return (
     <div className="min-h-screen bg-cream-100 flex flex-col">
       {/* Header */}
-      <header className="py-6 px-8">
+      <header className="py-4 sm:py-6 px-4 sm:px-6 lg:px-8">
         <nav className="max-w-6xl mx-auto">
           <Link to="/" className="flex items-center gap-2 w-fit">
-            <svg className="w-8 h-8 text-ink-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg className="w-7 h-7 sm:w-8 sm:h-8 text-ink-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M12 19l7-7 3 3-7 7-3-3z" />
               <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
               <path d="M2 2l7.586 7.586" />
               <circle cx="11" cy="11" r="2" />
             </svg>
-            <span className="font-logo text-2xl italic text-ink-800">Inkwell</span>
+            <span className="font-logo text-xl sm:text-2xl italic text-ink-800">Inkwell</span>
           </Link>
         </nav>
       </header>
 
       {/* Auth Form */}
-      <main className="flex-1 flex items-center justify-center px-8 py-16">
-        <Card className="w-full max-w-md p-8">
-          <div className="text-center mb-8">
-            <h1 className="font-serif text-3xl font-semibold text-ink-800 mb-2">
+      <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
+        <Card className="w-full max-w-md p-5 sm:p-8">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="font-serif text-2xl sm:text-3xl font-semibold text-ink-800 mb-2">
               {isSignUp ? 'Create your account' : 'Welcome back'}
             </h1>
             <p className="text-ink-500">

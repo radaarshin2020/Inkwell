@@ -150,10 +150,10 @@ export function DocumentEditor() {
   return (
     <div className="h-screen flex flex-col bg-cream-100">
       {/* Header */}
-      <header className="bg-cream-50 border-b border-cream-200 px-4 py-3 flex items-center gap-4 flex-shrink-0">
+      <header className="bg-cream-50 border-b border-cream-200 px-2 sm:px-4 py-2 sm:py-3 flex items-center gap-2 sm:gap-4 flex-shrink-0">
         <Link
           to="/dashboard"
-          className="p-2 text-ink-500 hover:text-ink-700 hover:bg-cream-200 rounded-lg transition-colors"
+          className="p-2 text-ink-500 hover:text-ink-700 hover:bg-cream-200 rounded-lg transition-colors flex-shrink-0"
           title="Back to dashboard"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -161,7 +161,8 @@ export function DocumentEditor() {
           </svg>
         </Link>
         
-        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+        {/* Logo - hidden on mobile */}
+        <Link to="/" className="hidden sm:flex items-center gap-2 hover:opacity-80 transition-opacity flex-shrink-0">
           <svg className="w-6 h-6 text-ink-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M12 19l7-7 3 3-7 7-3-3z" />
             <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
@@ -171,19 +172,19 @@ export function DocumentEditor() {
           <span className="font-logo text-lg italic text-ink-700">Inkwell</span>
         </Link>
         
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center min-w-0">
           <input
             type="text"
             value={title}
             onChange={(e) => handleTitleChange(e.target.value)}
             placeholder="Untitled Document"
-            className="bg-transparent font-serif text-xl text-ink-700 text-center border-none outline-none focus:ring-0 placeholder-ink-300 max-w-md w-full"
+            className="bg-transparent font-serif text-base sm:text-xl text-ink-700 text-center border-none outline-none focus:ring-0 placeholder-ink-300 max-w-md w-full truncate"
           />
         </div>
         
-        <div className="flex items-center gap-3 text-sm text-ink-400">
+        <div className="flex items-center gap-1 sm:gap-3 text-xs sm:text-sm text-ink-400 flex-shrink-0">
           {isSaving ? (
-            <span className="flex items-center gap-2">
+            <span className="hidden sm:flex items-center gap-2">
               <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
@@ -191,11 +192,11 @@ export function DocumentEditor() {
               Saving...
             </span>
           ) : (
-            <span>{formatLastSaved()}</span>
+            <span className="hidden sm:inline">{formatLastSaved()}</span>
           )}
           
           {/* Sidebar toggle buttons */}
-          <div className="flex items-center gap-1 ml-2 border-l border-cream-300 pl-3">
+          <div className="flex items-center gap-1 sm:ml-2 sm:border-l border-cream-300 sm:pl-3">
             <Button
               onClick={() => setShowKnowledgeSidebar(!showKnowledgeSidebar)}
               variant="ghost"
@@ -230,21 +231,25 @@ export function DocumentEditor() {
         </div>
       </header>
 
-      {/* Main Layout */}
-      <div className="flex-1 flex overflow-hidden">
+      {/* Main Layout - Vertical stack on mobile, horizontal on desktop */}
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
         {/* Left Sidebar - Knowledge */}
         <div 
-          className={`flex-shrink-0 transition-all duration-300 ease-in-out overflow-hidden ${
-            showKnowledgeSidebar ? 'w-72 opacity-100' : 'w-0 opacity-0'
-          }`}
+          className={`
+            ${showKnowledgeSidebar ? 'h-48 md:h-auto' : 'h-0'}
+            ${showKnowledgeSidebar ? 'md:w-72 md:opacity-100' : 'md:w-0 md:opacity-0'}
+            w-full md:w-auto
+            flex-shrink-0 transition-all duration-300 ease-in-out overflow-hidden
+            border-b md:border-b-0 border-cream-200
+          `}
         >
-          <div className="w-72 h-full">
+          <div className="w-full md:w-72 h-full">
             <KnowledgeSidebar documentId={documentId} />
           </div>
         </div>
 
         {/* Main Editor */}
-        <div className="flex-1 p-6 overflow-hidden transition-all duration-300 ease-in-out">
+        <div className="flex-1 p-3 sm:p-6 overflow-hidden transition-all duration-300 ease-in-out min-h-0">
           <div className="h-full max-w-4xl mx-auto">
             <Editor
               content={content}
@@ -257,11 +262,15 @@ export function DocumentEditor() {
 
         {/* Right Sidebar - AI Chat */}
         <div 
-          className={`flex-shrink-0 transition-all duration-300 ease-in-out overflow-hidden ${
-            showAIChatSidebar ? 'w-80 opacity-100' : 'w-0 opacity-0'
-          }`}
+          className={`
+            ${showAIChatSidebar ? 'h-64 md:h-auto' : 'h-0'}
+            ${showAIChatSidebar ? 'md:w-80 md:opacity-100' : 'md:w-0 md:opacity-0'}
+            w-full md:w-auto
+            flex-shrink-0 transition-all duration-300 ease-in-out overflow-hidden
+            border-t md:border-t-0 border-cream-200
+          `}
         >
-          <div className="w-80 h-full">
+          <div className="w-full md:w-80 h-full">
             <AIChatSidebar
               documentId={documentId}
               documentContent={content}

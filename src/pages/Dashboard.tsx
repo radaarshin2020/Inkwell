@@ -25,42 +25,42 @@ export function Dashboard() {
     <div className="min-h-screen bg-cream-100">
       {/* Header */}
       <header className="bg-cream-50 border-b border-cream-200 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-8 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <svg className="w-8 h-8 text-ink-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg className="w-7 h-7 sm:w-8 sm:h-8 text-ink-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M12 19l7-7 3 3-7 7-3-3z" />
               <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
               <path d="M2 2l7.586 7.586" />
               <circle cx="11" cy="11" r="2" />
             </svg>
-            <span className="font-logo text-2xl italic text-ink-800">Inkwell</span>
+            <span className="font-logo text-xl sm:text-2xl italic text-ink-800">Inkwell</span>
           </Link>
           <AccountDropdown />
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-8 py-12">
-        <div className="mb-10">
-          <div className="flex items-center justify-between mb-2">
-            <h1 className="font-serif text-3xl font-semibold text-ink-800">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="mb-8 sm:mb-10">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
+            <h1 className="font-serif text-2xl sm:text-3xl font-semibold text-ink-800">
               Your Documents
             </h1>
-            <Button onClick={handleCreateDocument}>
+            <Button onClick={handleCreateDocument} className="w-full sm:w-auto">
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
               New Document
             </Button>
           </div>
-          <p className="text-ink-500">
+          <p className="text-ink-500 text-sm sm:text-base">
             Create, edit, and manage your documents with AI assistance
           </p>
         </div>
 
         {documents === undefined ? (
           // Loading state
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[1, 2, 3].map((i) => (
               <div key={i} className="bg-cream-50 rounded-2xl p-6 animate-pulse">
                 <div className="flex items-center gap-3 mb-3">
@@ -94,7 +94,7 @@ export function Dashboard() {
           </div>
         ) : (
           // Documents grid
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {documents.map((doc) => (
               <DocumentCard
                 key={doc._id}

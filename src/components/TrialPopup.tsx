@@ -65,43 +65,43 @@ export function TrialPopup({ userEmail, onSuccess }: TrialPopupProps) {
 
   return (
     <>
-      <div className="fixed inset-0 bg-ink-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-        <Card className="w-full max-w-lg p-8 animate-in fade-in zoom-in duration-200">
+      <div className="fixed inset-0 bg-ink-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4 overflow-y-auto">
+        <Card className="w-full max-w-lg p-5 sm:p-8 animate-in fade-in zoom-in duration-200 my-auto">
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-accent-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-accent-100 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <svg className="w-7 h-7 sm:w-8 sm:h-8 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 19l7-7 3 3-7 7-3-3z" />
                 <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
                 <path d="M2 2l7.586 7.586" />
                 <circle cx="11" cy="11" r="2" />
               </svg>
             </div>
-            <h2 className="font-serif text-2xl font-semibold text-ink-800 mb-2">
+            <h2 className="font-serif text-xl sm:text-2xl font-semibold text-ink-800 mb-2">
               Unlock the Full Power of Inkwell
             </h2>
-            <p className="text-ink-500">
+            <p className="text-ink-500 text-sm sm:text-base">
               Start your free trial today and experience AI-powered writing like never before
             </p>
           </div>
 
           {/* Benefits */}
-          <div className="space-y-4 mb-8">
+          <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
             {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-cream-200 rounded-xl flex items-center justify-center flex-shrink-0 text-ink-600">
+              <div key={index} className="flex items-start gap-3 sm:gap-4">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 bg-cream-200 rounded-xl flex items-center justify-center flex-shrink-0 text-ink-600">
                   {benefit.icon}
                 </div>
                 <div>
-                  <h3 className="font-medium text-ink-700">{benefit.title}</h3>
-                  <p className="text-sm text-ink-500">{benefit.description}</p>
+                  <h3 className="font-medium text-ink-700 text-sm sm:text-base">{benefit.title}</h3>
+                  <p className="text-xs sm:text-sm text-ink-500">{benefit.description}</p>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Pricing */}
-          <div className="bg-cream-100 rounded-xl p-4 mb-6 text-center">
+          <div className="bg-cream-100 rounded-xl p-3 sm:p-4 mb-5 sm:mb-6 text-center">
             <div className="flex items-baseline justify-center gap-1">
               <span className="text-3xl font-bold text-ink-800">$19</span>
               <span className="text-ink-500">/month</span>

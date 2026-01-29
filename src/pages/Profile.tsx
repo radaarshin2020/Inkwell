@@ -76,22 +76,22 @@ export function Profile() {
     <div className="min-h-screen bg-cream-100">
       {/* Header */}
       <header className="bg-cream-50 border-b border-cream-200 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-8 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between">
           <Link to="/dashboard" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <svg className="w-8 h-8 text-ink-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg className="w-7 h-7 sm:w-8 sm:h-8 text-ink-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M12 19l7-7 3 3-7 7-3-3z" />
               <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
               <path d="M2 2l7.586 7.586" />
               <circle cx="11" cy="11" r="2" />
             </svg>
-            <span className="font-logo text-2xl italic text-ink-800">Inkwell</span>
+            <span className="font-logo text-xl sm:text-2xl italic text-ink-800">Inkwell</span>
           </Link>
           <AccountDropdown />
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-2xl mx-auto px-8 py-12">
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="mb-8">
           <Button
             onClick={() => navigate('/dashboard')}
@@ -103,7 +103,7 @@ export function Profile() {
             </svg>
             Back to Dashboard
           </Button>
-          <h1 className="font-serif text-3xl font-semibold text-ink-800">
+          <h1 className="font-serif text-2xl sm:text-3xl font-semibold text-ink-800">
             Profile Settings
           </h1>
           <p className="text-ink-500 mt-2">
@@ -119,9 +119,9 @@ export function Profile() {
             <div className="h-12 bg-cream-200 rounded-xl" />
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="bg-cream-50 rounded-2xl p-8 shadow-soft">
-            <div className="flex items-center gap-4 mb-8 pb-8 border-b border-cream-200">
-              <div className="w-16 h-16 bg-ink-700 text-cream-50 rounded-full flex items-center justify-center text-xl font-medium">
+          <form onSubmit={handleSubmit} className="bg-cream-50 rounded-2xl p-4 sm:p-8 shadow-soft">
+            <div className="flex flex-col sm:flex-row items-center gap-4 mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-cream-200">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 bg-ink-700 text-cream-50 rounded-full flex items-center justify-center text-lg sm:text-xl font-medium">
                 {name
                   ? name
                       .split(' ')
@@ -131,11 +131,11 @@ export function Profile() {
                       .slice(0, 2)
                   : user?.email?.slice(0, 2).toUpperCase() ?? '?'}
               </div>
-              <div>
-                <h2 className="font-medium text-ink-800 text-lg">
+              <div className="text-center sm:text-left">
+                <h2 className="font-medium text-ink-800 text-base sm:text-lg">
                   {name || email}
                 </h2>
-                <p className="text-ink-500">{email}</p>
+                <p className="text-ink-500 text-sm sm:text-base">{email}</p>
               </div>
             </div>
 
@@ -159,8 +159,8 @@ export function Profile() {
               />
             </div>
 
-            <div className="flex items-center gap-4 mt-8 pt-8 border-t border-cream-200">
-              <Button type="submit" disabled={!hasChanges || isSaving}>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-cream-200">
+              <Button type="submit" disabled={!hasChanges || isSaving} className="w-full sm:w-auto">
                 {isSaving ? (
                   <>
                     <svg className="w-5 h-5 mr-2 animate-spin" viewBox="0 0 24 24">
@@ -195,8 +195,8 @@ export function Profile() {
             Set global instructions that guide how the AI assistant responds across all your documents
           </p>
 
-          <form onSubmit={handleSaveAIInstructions} className="bg-cream-50 rounded-2xl p-8 shadow-soft">
-            <div className="flex items-center gap-3 mb-6 pb-6 border-b border-cream-200">
+          <form onSubmit={handleSaveAIInstructions} className="bg-cream-50 rounded-2xl p-4 sm:p-8 shadow-soft">
+            <div className="flex items-center gap-3 mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-cream-200">
               <div className="w-12 h-12 bg-accent-100 text-accent-600 rounded-xl flex items-center justify-center">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-2.47 2.47a3 3 0 01-2.12.878H9.59a3 3 0 01-2.12-.878L5 14.5m14 0v4.375a2.625 2.625 0 01-2.625 2.625H7.625A2.625 2.625 0 015 18.875V14.5" />
@@ -225,8 +225,8 @@ export function Profile() {
               Tip: Include tone preferences, writing style guidelines, or specific formatting requirements.
             </p>
 
-            <div className="flex items-center gap-4">
-              <Button type="submit" disabled={!hasAIChanges || isSavingAI}>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+              <Button type="submit" disabled={!hasAIChanges || isSavingAI} className="w-full sm:w-auto">
                 {isSavingAI ? (
                   <>
                     <svg className="w-5 h-5 mr-2 animate-spin" viewBox="0 0 24 24">
