@@ -276,10 +276,11 @@ http.route({
   method: "GET",
   handler: httpAction(async () => {
     console.log("GET /webhook - Route is accessible");
+    const siteUrl = process.env.CONVEX_SITE_URL || "https://your-deployment.convex.site";
     return new Response(JSON.stringify({ 
       status: "ok", 
       message: "Polar webhook endpoint is accessible. POST to this endpoint to trigger webhooks.",
-      expectedUrl: "https://chatty-jackal-362.convex.site/webhook"
+      expectedUrl: `${siteUrl}/webhook`
     }), { 
       status: 200,
       headers: { 
@@ -295,9 +296,10 @@ http.route({
   path: "/polar-webhook",
   method: "GET",
   handler: httpAction(async () => {
+    const siteUrl = process.env.CONVEX_SITE_URL || "https://your-deployment.convex.site";
     return new Response(JSON.stringify({ 
       status: "ok", 
-      message: "This endpoint has moved. Use: https://chatty-jackal-362.convex.site/api/webhooks/polar"
+      message: `This endpoint has moved. Use: ${siteUrl}/webhook`
     }), { 
       status: 200,
       headers: { "Content-Type": "application/json" }

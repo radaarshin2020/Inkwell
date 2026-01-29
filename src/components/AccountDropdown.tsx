@@ -88,7 +88,7 @@ export function AccountDropdown() {
               Profile
             </Button>
             <Button
-              onClick={() => window.open('https://sandbox.polar.sh/inkwelltest/portal', '_blank')}
+              onClick={() => window.open(import.meta.env.VITE_POLAR_PORTAL_URL || 'https://sandbox.polar.sh/inkwelltest/portal', '_blank')}
               variant="ghost"
               className="w-full px-4 py-2.5 text-left text-ink-700 flex items-center gap-3"
             >

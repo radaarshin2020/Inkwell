@@ -7,8 +7,9 @@ interface PolarCheckoutProps {
   onClose: () => void;
 }
 
-// Using Polar Sandbox for testing/education
-const CHECKOUT_LINK = 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_xbMjlzArtAPZg6WdZ8rYyJhF1gl7rVgz6Q0zv2a3UIo/redirect';
+// Use environment variable for checkout link, fallback to sandbox for development
+const CHECKOUT_LINK = import.meta.env.VITE_POLAR_CHECKOUT_LINK || 
+  'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_xbMjlzArtAPZg6WdZ8rYyJhF1gl7rVgz6Q0zv2a3UIo/redirect';
 
 export function PolarCheckout({ userEmail, onSuccess, onClose }: PolarCheckoutProps) {
   const checkoutRef = useRef<Awaited<ReturnType<typeof PolarEmbedCheckout.create>> | null>(null);
